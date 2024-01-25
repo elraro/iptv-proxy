@@ -67,10 +67,9 @@ func (c *Config) cacheXtreamM3u(playlist *m3u.Playlist, cacheName string) error 
 
 		// Get name of file and its full path.
 		nameHere := fileHere.Name()
-		fullPath := directory + nameHere
 
 		// Remove the file.
-		os.Remove(fullPath)
+		os.Remove(os.TempDir() + nameHere)
 		log.Printf("[iptv-proxy] Removed file:", fullPath)
 	}
 
