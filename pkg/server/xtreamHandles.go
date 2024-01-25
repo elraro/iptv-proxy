@@ -57,6 +57,23 @@ func (c *Config) cacheXtreamM3u(playlist *m3u.Playlist, cacheName string) error 
 	tmp := *c
 	tmp.playlist = playlist
 
+	// Open the directory and read all its files.
+	dirRead, _ := os.Open(os.TempDir())
+	dirFiles, _ := dirRead.Readdir(0)
+
+	// Loop over the directory's files.
+	for index := range(dirFiles) {
+		fileHere := dirFiles[index]
+
+		// Get name of file and its full path.
+		nameHere := fileHere.Name()
+		fullPath := directory + nameHere
+
+		// Remove the file.
+		os.Remove(fullPath)
+		log.Printf("[iptv-proxy] Removed file:", fullPath)
+	}
+
 	path := filepath.Join(os.TempDir(), uuid.NewV4().String()+".iptv-proxy.m3u")
 	f, err := os.Create(path)
 	if err != nil {
