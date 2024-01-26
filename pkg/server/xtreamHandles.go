@@ -69,8 +69,8 @@ func (c *Config) cacheXtreamM3u(playlist *m3u.Playlist, cacheName string) error 
 		nameHere := fileHere.Name()
 
 		// Remove the file.
-		os.Remove(os.TempDir() + nameHere)
-		log.Printf("[iptv-proxy] Removed file: %s", os.TempDir() + nameHere)
+		os.Remove(os.TempDir() + "/" + nameHere)
+		log.Printf("[iptv-proxy] Removed file: %s", os.TempDir() + "/" + nameHere)
 	}
 
 	path := filepath.Join(os.TempDir(), uuid.NewV4().String()+".iptv-proxy.m3u")
